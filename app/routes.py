@@ -21,3 +21,11 @@ def extraction():
 @app.route("/lista_produktow")
 def productList():
     return render_template('product_list.html')
+
+@app.route("/produkt")
+def product():
+    return render_template('product.html')
+
+@app.route("/wykresy")
+def charts():
+    return render_template('charts.html')
