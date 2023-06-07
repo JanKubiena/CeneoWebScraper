@@ -1,5 +1,5 @@
 from app import app
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 
 @app.route("/")
 def index():
@@ -14,17 +14,20 @@ def name(name):
 def author():
     return render_template('about_author.html')
 
-@app.route("/ekstrakcja")
+@app.route("/ekstrakcja", methods=['POST','GET'])
 def extraction():
+    if request.method == 'POST':
+        product_code = request.form.get('product_code')
+        return redirect(url_for('product', code=product_code))
     return render_template('extraction.html')
 
 @app.route("/lista_produktow")
 def productList():
     return render_template('product_list.html')
 
-@app.route("/produkt")
-def product():
-    return render_template('product.html')
+@app.route("/product/<code>")
+def product(code):
+    return render_template('product.html', product_code=code)
 
 @app.route("/wykresy")
 def charts():
